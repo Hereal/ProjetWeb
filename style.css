@@ -30,22 +30,15 @@ body {
   position: relative;
   top:0;
   width: 15vw;
-  height: 5vh;
+  height: 7vh;
   text-align: center;
   vertical-align: middle;
   line-height: 5vh;
   color: black;
   font-size: 2vh;
 }
-.filterContent{
-  margin:0;
-  position: relative;
-  width: 15vw;
-  height: 5vh;
-  color: black;
-}
 select{
-  width: 15vw;
+  width: 14vw;
   border: none;
   padding: 0.2vw;
 }
@@ -62,15 +55,73 @@ select{
   line-height: 7vh;
 }
 .searchBar{
-  width: 90%;
+  width: 60vw;
+  font-size: 2vh;
+  position:absolute;
+  left:10vw;
+  top:1.5vh;
 }
 .searchButton{
   padding:0;
+  font-size: 2vh;
+  left:70vw;
+  top:1.4vh;
+  position:absolute;
 }
 .map{
-  top:20vh;
+  top:14vh;
   left:15vw;
-  width: 15vw;
-  height: 15vh;
+  width: 50vw;
+  height: auto;
   position: absolute;
+}
+
+hr{
+  width: 14vw;
+  margin: 0;
+  padding: 0;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+}
+
+h5{
+  margin: 0;
+  padding: 0;
+  font-size: 1.5vh;
+}
+
+h3{
+  font-size: 2.5vh;
+  margin: 0;
+  padding: 0;
+}
+
+.resultDiv{
+  background-color: #d9ead3;
+  position: absolute;
+  top:14vh;
+  left:85vw;
+  width: 15vw;
+  height: 93vh;
+}
+.resultTitle{
+  margin:0;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: relative;
+  top:0;
+  width: 15vw;
+  height: 7vh;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 5vh;
+  color: black;
+  font-size: 2vh;
+}
+.content{
+  margin:0;
+  position: relative;
+  width: 15vw;
+  height: 5vh;
+  color: black;
+  padding: 0.5vw;
 }
