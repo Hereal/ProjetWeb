@@ -5,6 +5,12 @@
     <meta charset="utf-8">
     <title>Portail de la formation</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
 </head>
 
 <body>
@@ -158,7 +164,7 @@
                         <option value="8">Bac+8</option>
                     </SELECT>
 
-                    <input type="submit" value="Filtrer">
+                    <input class="filterInput"type="submit" value="Filtrer">
                 </FORM>
 
             </div>
@@ -169,7 +175,10 @@
             <input class="searchButton" type="submit" value="&#x1F50E;">
           </FORM>
         </div>
-          <img class="map" src="./images/map.jpg" alt="Carte des résultats">
+        <div id="mapid">
+          <script type="text/javascript" src="map.js"></script>
+        </div>
+
           <div class="resultDiv">
             <div class="title">
                 Résultats

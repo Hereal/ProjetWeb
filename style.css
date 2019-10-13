@@ -41,6 +41,13 @@ select{
   width: 14vw;
   border: none;
   padding: 0.2vw;
+  font-size: 1.5vh;
+}
+.filterInput{
+  width: 14vw;
+  border: none;
+  padding: 0.2vw;
+  font-size: 1.5vh;
 }
 
 .searchDiv{
@@ -68,12 +75,13 @@ select{
   top:1.4vh;
   position:absolute;
 }
-.map{
-  top:14vh;
-  left:15vw;
+#mapid{
+  top:21vh;
+  left:25vw;
   width: 50vw;
-  height: auto;
+  height: 50vh;
   position: absolute;
+  background-color: black;
 }
 
 hr{
