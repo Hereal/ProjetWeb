@@ -5,12 +5,8 @@
     <meta charset="utf-8">
     <title>Portail de la formation</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
 </head>
 
 <body>
@@ -20,10 +16,9 @@
         </div>
         <div class="filterDiv">
             <div class="title">
-                2 Formations trouvées
+                Filter
             </div>
             <div class="content">
-
                 <FORM>
                     <h3>Région</h3>
                     <hr>
@@ -164,33 +159,33 @@
                         <option value="8">Bac+8</option>
                     </SELECT>
 
-                    <input class="filterInput"type="submit" value="Filtrer">
+                    <input class="filterInput" type="submit" value="Filtrer">
                 </FORM>
 
             </div>
         </div>
         <div class="searchDiv">
-          <FORM>
-            <input class="searchBar" type="text" placeholder="Search..">
-            <input class="searchButton" type="submit" value="&#x1F50E;">
-          </FORM>
+            <FORM>
+                <input class="searchBar" type="text" placeholder="Recherche..">
+                <input class="searchButton" type="submit" value="&#x1F50E;">
+            </FORM>
         </div>
         <div id="mapid">
-          <script type="text/javascript" src="map.js"></script>
+            <script type="text/javascript" src="map/map.js"></script>
         </div>
 
-          <div class="resultDiv">
+        <div class="resultDiv">
             <div class="title">
                 Résultats
             </div>
             <div class="content">
-              <h3>Ecole d'ingénieur n°1</h3>
-              <h5>Test</h5>
-              <h3>Ecole d'ingénieur n°2</h3>
-              <h3>Ecole d'ingénieur n°3</h3>
+                <h3>Ecole d'ingénieur n°1</h3>
+                <h5>Test</h5>
+                <h3>Ecole d'ingénieur n°2</h3>
+                <h3>Ecole d'ingénieur n°3</h3>
 
             </div>
-          </div>
+        </div>
     </div>
 </body>
 
