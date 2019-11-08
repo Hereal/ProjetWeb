@@ -17,15 +17,7 @@ body {
   vertical-align: middle;
   line-height: 7vh;
   color: white;
-  font-size: 3.5vw;
-}
-
-.logo{
-  height: 5vh;
-  top:1vh;
-  left:1vw;
-  position: absolute;
-
+  font-size: 4vw;
 }
 .filterDiv{
   background-color: #d9ead3;
