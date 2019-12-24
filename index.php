@@ -5,10 +5,11 @@ $arrayFormation = $obj['facet_groups'][9]['facets'];
 $arrayDep = array();
 $tempoId = $obj['facet_groups'][1]['facets'];
 $tempoValue = $obj['facet_groups'][5]['facets'];
+/*
 for($i = 0; $i < count($tempoId); ++$i) {
   $arrayDep[$tempoId[$i]] = $tempoValue[$i];
   //array_push($arrayDep,$tempoId[$i]=>$tempoValue[$i]);
-}
+}*/
 ?>
 
 
