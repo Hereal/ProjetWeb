@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <!---------------  NavBar  ----------------------------->
+    <!--  NavBar  -->
     <div class="navBar">
         <div onclick="location.href='./index2.php';" class="navBarItemLeft">
             <img class="navBarLogo" src="./images/logo.png" alt="logo">
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <!---------------  content  ----------------------------->
+    <!--  content  -->
     <div class="content">
       <?php
 $query = $_GET['query'];
@@ -54,8 +54,8 @@ foreach ($array as $value) {
   echo "Type de D'Etablissement: ".$temp['etablissement_type_lib']."<br>";
 
 
-echo '<form action="./school.php" method="get" class="">
-    <input id="prodId" name="recordid" type="hidden" value="'.$value['recordid'].'">
+echo '<form action="./formation.php" method="get" class="">
+    <input  name="recordid" type="hidden" value="'.$value['recordid'].'">
     <input class="" type="submit" value="Voir cette formation">
 </form>';
 
