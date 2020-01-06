@@ -1,5 +1,4 @@
 window.onload = function(){
-
   var greenIcon = L.icon({
 
     iconUrl: '/ProjetWeb/map/images/marker.png',
@@ -18,9 +17,23 @@ window.onload = function(){
     	id: 'mapbox.streets',
     	accessToken: 'pk.eyJ1IjoiaGVyZWFsIiwiYSI6ImNrMW92ZnJ3dDBvaWQzbWw4MWMyemRmMTkifQ.ybaNjSTBRj1Cw45T379ZMA'
     });
-    tileStreets.addTo(mymap);
+    mymap.addLayer(tileStreets);
+
+    var markers = new L.MarkerClusterGroup();
+
+    var marker = L.marker([48.837370, 2.584711], {icon: greenIcon});
+    var marker2 = L.marker([43.176598636476484, 5.60640449585], {icon: greenIcon});
+    // add more markers here...
+    markers.addLayer(marker);
+    markers.addLayer(marker2);
+    mymap.addLayer(markers);
+    //mymap.addLayer(markers);
+
+
+
+/*
     var marker = L.marker([48.837370, 2.584711], {icon: greenIcon}).addTo(mymap);
       var marker2 = L.marker([43.176598636476484, 5.60640449585], {icon: greenIcon}).addTo(mymap);
     marker.bindPopup("IUT-UPEM");
-    marker2.bindPopup("Université Avignon");
+    marker2.bindPopup("Université Avignon");*/
 }

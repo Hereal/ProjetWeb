@@ -36,6 +36,42 @@ $arrayDep = array_combine($tempoId2, $tempoValue2);
 asort($arrayRegion);
 asort($arrayDep);
 asort($arrayFormation);
+
+$json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&rows=0&facet=etablissement&facet=etablissement_lib&refine.rentree_lib=2017-18');
+$obj            = json_decode($json, true);
+$arrayPoint = $obj['records'];
+//Liste Etablissement
+$tempoId     = $obj['facet_groups'][0]['facets'];
+$tempoId2    = array();
+$tempoValue  = $obj['facet_groups'][2]['facets'];
+$tempoValue2 = array();
+foreach ($tempoId as $value) {
+    array_push($tempoId2, $value['name']);
+}
+foreach ($tempoValue as $value) {
+    array_push($tempoValue2, $value['name']);
+}
+$arrayPoint = array_combine($tempoId2, $tempoValue2);
+$json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&rows=0&facet=uai');
+$obj            = json_decode($json, true);
+$tempoValue  = $obj['facet_groups']['0']['facets'];
+$arrayPoint2 = array();
+foreach ($tempoValue as $value) {
+    array_push($arrayPoint2, $value['name']);
+}
+
+function getValueArray($name){
+  $arrayreturn = array();
+  $json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&rows=-1');
+  $obj            = json_decode($json, true)['records'];
+  foreach ($obj as $key => $value) {
+    if(in_array($value['fields']['uai'],array_intersect($arrayPoint,$arrayPoint2)){
+      array_push($arrayreturn,$value);
+    }
+
+  }
+return $arrayreturn;
+}
 ?>
 
 <!doctype html>
@@ -49,9 +85,13 @@ asort($arrayFormation);
     <script src="./js/script.js" type="text/javascript">
     </script>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+    <link rel="stylesheet" href="./lib/Leaflet.markercluster-1.4.1/dist/MarkerCluster.css" />
+  	<link rel="stylesheet" href="./lib/Leaflet.markercluster-1.4.1/dist/MarkerCluster.Default.css" />
+  	<script src="./lib/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster-src.js"></script>
 </head>
 
 <body>
+
     <!---------------  NavBar  ----------------------------->
     <div class="navBar">
         <div onclick="location.href='./index2.php';" class="navBarItemLeft">
@@ -128,7 +168,56 @@ foreach ($arrayDep as $key => $value) {
             </FORM>
         </div>
         <div id="mapid">
-            <script type="text/javascript" src="map/map.js"></script>
+          <script type="text/javascript" >
+          <?php
+          if($obj['nhits'] =='0'){
+            echo"hidemap()";
+          }
+           ?>
+           window.onload = function(){
+             var greenIcon = L.icon({
+
+               iconUrl: '/ProjetWeb/map/images/marker.png',
+             	//shadowUrl: '/ProjetWeb/map/images/shadow.png',
+
+             	iconSize:     [38, 63], // size of the icon
+             	iconAnchor:   [22, 65], // point of the icon which will correspond to marker's location
+             	popupAnchor:  [-3, -50] // point from which the popup should open relative to the iconAnchor
+           });
+
+             console.log("salut");
+             var mymap = L.map('mapid').setView([47.096411, 2.620687], 6);
+             var tileStreets = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+               	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+               	maxZoom: 18,
+               	id: 'mapbox.streets',
+               	accessToken: 'pk.eyJ1IjoiaGVyZWFsIiwiYSI6ImNrMW92ZnJ3dDBvaWQzbWw4MWMyemRmMTkifQ.ybaNjSTBRj1Cw45T379ZMA'
+               });
+               mymap.addLayer(tileStreets);
+
+               var markers = new L.MarkerClusterGroup();
+               <?php
+               $array = array_intersect($arrayPoint,$arrayPoint2);
+               echo"<pre>";
+echo print_r($array);
+               echo"</pre>";
+               foreach ($array as $key => $value) {
+
+                   $x = floatval($obj['records']['0']['fields']['coordonnees']['0']);
+                   $y = floatval($obj['records']['0']['fields']['coordonnees']['1']);
+                   $name = $obj['records']['0']['fields']['uo_lib'];
+                   echo"markers.addLayer(new L.marker([".$x.",".$y."], {icon: greenIcon}).bindPopup(\"".$name."\"));\n";
+
+
+
+                }
+
+               ?>
+
+               mymap.addLayer(markers);
+           }
+
+          </script>
         </div>
 
 
