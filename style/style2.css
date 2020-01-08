@@ -10,6 +10,24 @@
      font-family:'Roboto', sans-serif;
      background-color: #1f1f1f;
 }
+a:link {
+  color: white;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+}
+
+/* mouse over link */
+a:hover {
+  color: #c9c9c9;
+}
+
+/* selected link */
+a:active {
+  color: #c9c9c9;
+}
  .navBar{
      user-select: none;
      height: 60px;
@@ -112,7 +130,7 @@
  .filter{
      display: none;
      padding: 5px;
-     padding-left: 25px;
+     padding-left: 31px;
      user-select: none;
      height: 100%;
      width: 250px;
@@ -123,10 +141,7 @@
  .cancelBtn{
      height: 100%;
      position: fixed;
-     writing-mode: vertical-rl;
-     display: inline-block;
-     text-orientation: upright;
-     margin-left: -25px;
+     margin-left: -31px;
      margin-top: -5px;
      border: solid;
      border-width: 1px;
@@ -135,11 +150,10 @@
      color:#818181;
      font-size: 1em;
 }
+
  .openBtn{
      height: 100%;
      position: fixed;
-     writing-mode: vertical-rl;
-     text-orientation: upright;
      border: solid;
      border-width: 1px;
      border-color: #303030;
@@ -159,6 +173,21 @@ select{
 #mapid{
   width: 100%;
   height: 100%;
-  margin-left:20px;
+  margin-left:31px;
   position: fixed;
+}
+#floatMap{
+  width: 20%;
+  height: 50%;
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  border: 14px ridge  #000000;
+}
+.informationContent{
+  display: inline-block;
+  position: absolute;
+  padding: 10px;
+  margin : 10px;
+  border: 2px solid #ffffff;
 }

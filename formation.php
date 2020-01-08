@@ -13,7 +13,7 @@
 <body>
     <!-- NavBar -->
     <div class="navBar">
-        <div onclick="location.href='./index2.php';" class="navBarItemLeft">
+        <div onclick="location.href='./index.php';" class="navBarItemLeft">
             <img class="navBarLogo" src="./images/logo.png" alt="logo">
         </div>
 
@@ -31,13 +31,11 @@
 
     <!--  content  -->
     <div class="content">
+      <div class="informationContent">
       <?php
       $recordid = $_GET['recordid'];
-      $json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&q=recordid%3A'.$recordid.'&sort=-rentree_lib');
+      $json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.recordid='.$recordid.'&refine.rentree_lib=2017-18');
       $obj            = json_decode($json, true);
-      echo "<pre>";
-      //print_r($obj);
-      echo "</pre>";
       if($obj['nhits'] =='0'){
         echo "Aucun résultats";
       }
@@ -45,18 +43,17 @@
         $array = $obj['records']['0']['fields'];
 
 
-        echo "Etablissement: ".$array['etablissement_lib']."<br>";
-        echo "Région: ".$array['reg_etab_lib']."<br>";
-        echo "Département: ".$array['dep_etab_lib']."<br>";
-        echo "Académie: ".$array['aca_etab_lib']."<br>";
-        echo "Ville: ".$array['com_etab_lib']."<br>";
-        echo "Type de Diplome: ".$array['typ_diplome_lib']."<br>";
-        echo "Type de D'Etablissement: ".$array['etablissement_type_lib']."<br>";
-
-        echo "<hr><br>";
+        echo "Etablissement: ".$array['etablissement_lib']."<br><hr>";
+        echo "Région: ".$array['reg_etab_lib']."<br><hr>";
+        echo "Département: ".$array['dep_etab_lib']."<br><hr>";
+        echo "Académie: ".$array['aca_etab_lib']."<br><hr>";
+        echo "Ville: ".$array['com_etab_lib']."<br><hr>";
+        echo "Type de Diplome: ".$array['typ_diplome_lib']."<br><hr>";
+        echo "Type de D'Etablissement: ".$array['etablissement_type_lib']."<br><hr>";
+        echo "<a href='./ecole.php?etablissement=".$array['etablissement']."'>Voir les autres formations de cet établissement</a><br>";
         $json = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&q='.$array['etablissement'].'&sort=uo_lib&refine.rentree_lib=2017-18');
         $obj = json_decode($json, true);
-        echo $array['etablissement'];
+
         if($obj['nhits'] =='0'){
           echo "Aucun résultats";
           $x = 47.096411;
@@ -64,16 +61,14 @@
           $name = "Aucun Résultat";
         }
         else{
-          echo "X".$obj['records']['0']['fields']['coordonnees']['0'];
-          echo "<br>";
-          echo "Y".$obj['records']['0']['fields']['coordonnees']['1'];
           $x = floatval($obj['records']['0']['fields']['coordonnees']['0']);
           $y = floatval($obj['records']['0']['fields']['coordonnees']['1']);
           $name = $array['etablissement_lib'];
         }
       }
       ?>
-      <div id="mapid">
+      </div>
+      <div id="floatMap">
           <script>
           <?php
           if($obj['nhits'] =='0'){
@@ -92,20 +87,17 @@
           });
 
             console.log("salut");
-          var mymap = L.map('mapid').setView([<?php echo$x; ?>, <?php echo$y; ?>], 8);
+          var mymap = L.map('floatMap').setView([<?php echo$x; ?>, <?php echo$y; ?>], 8);
             var tileStreets = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-              	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-              	maxZoom: 18,
+                maxZoom: 18,
               	id: 'mapbox.streets',
               	accessToken: 'pk.eyJ1IjoiaGVyZWFsIiwiYSI6ImNrMW92ZnJ3dDBvaWQzbWw4MWMyemRmMTkifQ.ybaNjSTBRj1Cw45T379ZMA'
               });
               tileStreets.addTo(mymap);
               var marker = L.marker([<?php echo$x; ?>, <?php echo$y; ?>], {icon: greenIcon}).addTo(mymap);
-              marker.bindPopup(<?php echo'"'.$name.'"' ?>);
           }
           </script>
       </div>
-
     </div>
 </body>
 
