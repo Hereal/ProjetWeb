@@ -201,7 +201,6 @@ foreach ($arrayDep as $key => $value) {
              var greenIcon = L.icon({
 
                iconUrl: '/ProjetWeb/map/images/marker.png',
-             	//shadowUrl: '/ProjetWeb/map/images/shadow.png',
 
              	iconSize:     [38, 63], // size of the icon
              	iconAnchor:   [22, 65], // point of the icon which will correspond to marker's location
