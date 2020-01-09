@@ -14,7 +14,3 @@ function closeForm() {
 function hidemap() {
   document.getElementById("mapid").style.display = "none";
 }
-
-window.onload = function(){
-
-}

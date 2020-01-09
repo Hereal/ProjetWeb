@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Portail de la formation</title>
-    <link rel="stylesheet" href="style/style2.css">
+    <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>

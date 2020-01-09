@@ -1,34 +1,12 @@
-<?php
-
-
-function getImageUrl($str) {
-    $lines = explode(PHP_EOL, $str);
-    foreach ($lines as $value) {
-
-echo $value;
-      echo "<br>";
-      if (strpos($value, 'og:image') !== false) {
-        return $value;
-      }
-      // code...
-    }
-    return "";
-}
-
-
-
- ?>
-
 <!doctype html>
 <html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <title>Portail de la formation</title>
-    <link rel="stylesheet" href="style/style2.css">
+    <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-    <script src="./js/script.js" > </script>
 </head>
 
 <body>
@@ -54,39 +32,39 @@ echo $value;
     <div class="content">
       <div class="informationContent">
       <?php
-$query = $_GET['etablissement'];
-$json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.rentree_lib=2017-18&refine.etablissement='.$query);
-$obj            = json_decode($json, true);
-if($obj['nhits'] =='0'){
-  echo "Aucun résultats";
-}
-else{
-$array = $obj['records'];
+        $query = $_GET['etablissement'];
+        $json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.rentree_lib=2017-18&refine.etablissement='.$query);
+        $obj            = json_decode($json, true);
+        if($obj['nhits'] =='0'){
+          echo "Aucun résultats";
+        }
+        else{
+          $array = $obj['records'];
 
+          //Affichage des informations sur l'etablissement
+          echo "Région: ".$array['0']['fields']['reg_etab_lib']."<br><hr>";
+          echo "Département: ".$array['0']['fields']['dep_etab_lib']."<br><hr>";
+          echo "Académie: ".$array['0']['fields']['aca_etab_lib']."<br><hr>";
+          echo "Ville: ".$array['0']['fields']['com_etab_lib']."<br><hr>";
 
+          //Recuperation des coordonnees de l'etablissement
+          $json = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&q='.$array['0']['fields']['etablissement'].'&sort=uo_lib&refine.rentree_lib=2017-18');
+          $obj = json_decode($json, true);
 
-
-echo "Région: ".$array['0']['fields']['reg_etab_lib']."<br><hr>";
-echo "Département: ".$array['0']['fields']['dep_etab_lib']."<br><hr>";
-echo "Académie: ".$array['0']['fields']['aca_etab_lib']."<br><hr>";
-echo "Ville: ".$array['0']['fields']['com_etab_lib']."<br><hr>";
-$json = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&q='.$array['0']['fields']['etablissement'].'&sort=uo_lib&refine.rentree_lib=2017-18');
-$obj = json_decode($json, true);
-
-if($obj['nhits'] =='0'){
-  echo "Aucun résultats";
-  $x = 47.096411;
-  $y = 2.620687;
-  $name = "Aucun Résultat";
-}
-else{
-  $x = floatval($obj['records']['0']['fields']['coordonnees']['0']);
-  $y = floatval($obj['records']['0']['fields']['coordonnees']['1']);
-}
-}
-?>
-</div>
-</div>
+          if($obj['nhits'] =='0'){
+            echo "Aucun résultats";
+            $x = 47.096411;
+            $y = 2.620687;
+            $name = "Aucun Résultat";
+          }
+          else{
+            $x = floatval($obj['records']['0']['fields']['coordonnees']['0']);
+            $y = floatval($obj['records']['0']['fields']['coordonnees']['1']);
+          }
+        }
+      ?>
+      </div>
+    </div>
 <div id="floatMap">
   <script>
   <?php
@@ -98,7 +76,7 @@ else{
 
     var greenIcon = L.icon({
 
-      iconUrl: '/ProjetWeb/map/images/marker.png',
+      iconUrl: '/ProjetWeb/images/marker.png',
 
       iconSize:     [38, 63], // size of the icon
       iconAnchor:   [22, 65], // point of the icon which will correspond to marker's location
