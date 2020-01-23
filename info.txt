@@ -1,0 +1,16 @@
+afficher un message d'erreur avec l'api
+utiliser un tracker (Matomo, google analytics)
+ajouter des comptes utilisateurs
+ajouter lien github
+
+améliorer la fiche formation
+créer un compteur par formations
+enregister le nombre de clics par université
+Intégrer graphique du taux d'étudiant.
+
+
+fiche université:
+	montrez le nombre de clics qu'il y a eu vers le site institutionnel de l'université.
+	boutton j'aime
+	mettre un avis.
+

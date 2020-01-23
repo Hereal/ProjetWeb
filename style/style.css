@@ -165,7 +165,6 @@ a:active {
  .filterInput{
      position: fixed;
      width: 250px;
-     top: 95%;
 }
 select{
   width: 250px;
@@ -191,4 +190,18 @@ select{
   padding: 10px;
   margin : 10px;
   border: 2px solid #ffffff;
+}
+.footer{
+    user-select: none;
+    height: 15px;
+    width: 100%;
+    background-color: #272727;
+    text-align: left;
+    position: fixed; bottom: 0;
+
+}
+
+.like{
+  height: 30px;
+  width: 30px;
 }

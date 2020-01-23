@@ -122,6 +122,16 @@ $arrayEtablisement = array_intersect_key($arrayEtablisement,$arrayPoint); //Recu
     <link rel="stylesheet" href="./lib/MarkerCluster.css" />
   	<link rel="stylesheet" href="./lib/MarkerCluster.Default.css" />
   	<script src="./lib/leaflet.markercluster-src.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156849275-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-156849275-1');
+  </script>
+
 </head>
 
 <body>
@@ -204,7 +214,7 @@ $arrayEtablisement = array_intersect_key($arrayEtablisement,$arrayPoint); //Recu
            window.onload = function(){
              var greenIcon = L.icon({
 
-               iconUrl: '/ProjetWeb/images/marker.png',
+               iconUrl: './images/marker.png',
 
              	iconSize:     [38, 63], // size of the icon
              	iconAnchor:   [22, 65], // point of the icon which will correspond to marker's location
@@ -237,6 +247,10 @@ $arrayEtablisement = array_intersect_key($arrayEtablisement,$arrayPoint); //Recu
           </script>
         </div>
     </div>
+    <?php include('footer.html');
+    echo $_SERVER['REMOTE_ADDR'];
+    ?>
+
 </body>
 
 </html>
