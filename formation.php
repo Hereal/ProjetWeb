@@ -1,3 +1,4 @@
+<?php include_once 'API.php';$api = new API(); ?>
 <!doctype html>
 <html lang="fr">
 
@@ -33,7 +34,7 @@
       <div class="informationContent">
       <?php
       $recordid = $_GET['recordid'];//ID d'un resultat de la base de donnée
-      $json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.recordid='.$recordid.'&refine.rentree_lib=2017-18');
+      $json           = $api->api1Request('&refine.recordid='.$recordid);
       $obj            = json_decode($json, true);
       if($obj['nhits'] =='0'){
         echo "Aucun résultats";
@@ -52,7 +53,7 @@
         echo "<a href='./ecole.php?etablissement=".$array['etablissement']."'>Voir les autres formations de cet établissement</a><br>";
 
         //Recuperation des coordonnees de l'etablissement
-        $json = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&q='.$array['etablissement'].'&sort=uo_lib&refine.rentree_lib=2017-18');
+        $json = $api->api2Request('&q='.$array['etablissement'].'&sort=uo_lib');
         $obj = json_decode($json, true);
 
         if($obj['nhits'] =='0'){

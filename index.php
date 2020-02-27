@@ -1,5 +1,5 @@
 <?php
-include_once 'API.php';
+include_once 'generateList.php';
 ?>
 
 <!doctype html>
@@ -22,7 +22,6 @@ include_once 'API.php';
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'UA-156849275-1');
   </script>
 
@@ -59,7 +58,7 @@ include_once 'API.php';
             <button type="submit" class="cancelBtn" onclick="closeForm()">
             ↩
           </button> <br>
-            <FORM>
+            <FORM action="index.php" method="get">
                 <!-- Type de Formations  -->
                 Type de Formations:<br>
                 <SELECT name="diplome_rgp" size="1">
@@ -85,6 +84,23 @@ include_once 'API.php';
                </SELECT>
                 <hr>
                 <br>
+
+                <!-- Secteur disciplinaire  -->
+                Secteur disciplinaire:<br>
+                <SELECT name="sect_disciplinaire" size="1">
+                <option value="">Choisir un secteur</option>
+                <?php
+                  foreach ($arraySecteur as $key => $value) {
+                      echo '<option value="' . $key . '">' . $value . '</option>';
+                  }
+                ?>
+                </SELECT>
+                <hr>
+                <br>
+
+
+
+
 
                 <!-- Départements  -->
                 Département:<br>
@@ -142,7 +158,6 @@ include_once 'API.php';
         </div>
     </div>
     <?php include('footer.html');
-    echo $_SERVER['REMOTE_ADDR'];
     ?>
 
 </body>

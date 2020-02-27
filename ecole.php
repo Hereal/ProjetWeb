@@ -1,3 +1,4 @@
+<?php include_once 'API.php';$api = new API(); ?>
 <!doctype html>
 <html lang="fr">
 
@@ -30,15 +31,16 @@
 
     <!--  content  -->
     <div class="content">
-      <div class="informationContent">
+
       <?php
         $query = $_GET['etablissement'];
-        $json           = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-diplomes-et-formations-prepares-etablissements-publics&refine.rentree_lib=2017-18&refine.etablissement='.$query);
+        $json           = $api->api1Request('&refine.etablissement='.$query);
         $obj            = json_decode($json, true);
         if($obj['nhits'] =='0'){
           echo "Aucun résultats";
         }
         else{
+          echo "<div class='informationContent'>";
           $array = $obj['records'];
 
           //Affichage des informations sur l'etablissement
@@ -48,7 +50,7 @@
           echo "Ville: ".$array['0']['fields']['com_etab_lib']."<br><hr>";
 
           //Recuperation des coordonnees de l'etablissement
-          $json = file_get_contents('https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-principaux-etablissements-enseignement-superieur&q='.$array['0']['fields']['etablissement'].'&sort=uo_lib&refine.rentree_lib=2017-18');
+          $json = $api->api2Request('&q='.$array['0']['fields']['etablissement'].'&sort=uo_lib');
           $obj = json_decode($json, true);
 
           if($obj['nhits'] =='0'){
@@ -61,9 +63,10 @@
             $x = floatval($obj['records']['0']['fields']['coordonnees']['0']);
             $y = floatval($obj['records']['0']['fields']['coordonnees']['1']);
           }
+          echo "</div>";
         }
       ?>
-    </div>
+
 <div id="floatMap">
   <script>
   <?php
@@ -95,25 +98,59 @@
   </script>
 </div>
 <?php
-echo "<br><br><br><br><br><br><br><br><br><br><br><br>";
+echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 
+
+
+
+
+
+$arrayFiltre = array();
+$nbHits = 0;
 foreach ($array as $value) {
+  $value2 = $value['fields'];
+  $string = $value2['reg_etab_lib'].$value2['dep_etab_lib'].$value2['aca_etab_lib'].$value2['com_etab_lib'].$value2['typ_diplome_lib'].$value2['etablissement_type_lib'];
+  $arrayFiltre[$string] = $value;
+}
+foreach ($arrayFiltre as $key => $value) {
+  $nbHits++;
+}
+
+
+
+
+
+
+
+echo "<div class='centerText'> ";
+echo $nbHits." Résultats trouvés</div><br>";
+
+
+
+echo "<div class='resultList'>";
+
+
+
+
+foreach ($arrayFiltre as $value) {
   $temp = $value['fields'];
 
+echo "<div class='resultContainer'>";echo "<div class='textContainer'>";
 
-
-  echo "Type de Diplome: ".$temp['typ_diplome_lib']."<br>";
+  echo "Type de Diplome: ".$temp['typ_diplome_lib']."<br><br>";
   echo "Type de D'Etablissement: ".$temp['etablissement_type_lib']."<br>";
 
 
 echo '<form action="./formation.php" method="get" class="">
+
     <input  name="recordid" type="hidden" value="'.$value['recordid'].'">
+    <br><br>
     <input class="" type="submit" value="Voir cette formation">
 </form>';
-
+  echo "</div>";echo "</div>";
   echo "<hr><br>";
 }
-
+echo "</div>";
 
 ?>
     </div>
