@@ -34,7 +34,7 @@
 
       <?php
         $query = $_GET['etablissement'];
-        $json           = $api->api1Request('&refine.etablissement='.$query);
+        $json           = $api->api1Request('&refine.etablissement='.$query.'&rows=-1');
         $obj            = json_decode($json, true);
         if($obj['nhits'] =='0'){
           echo "Aucun résultats";
@@ -137,6 +137,7 @@ foreach ($arrayFiltre as $value) {
 
 echo "<div class='resultContainer'>";echo "<div class='textContainer'>";
 
+  echo "Secteur: ".$temp['diplome_rgp']."<br><br>";
   echo "Type de Diplome: ".$temp['typ_diplome_lib']."<br><br>";
   echo "Type de D'Etablissement: ".$temp['etablissement_type_lib']."<br>";
 
@@ -148,7 +149,7 @@ echo '<form action="./formation.php" method="get" class="">
     <input class="" type="submit" value="Voir cette formation">
 </form>';
   echo "</div>";echo "</div>";
-  echo "<hr><br>";
+  echo "<br>";
 }
 echo "</div>";
 
