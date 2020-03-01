@@ -1,4 +1,4 @@
-<?php include_once 'API.php';$api = new API(); ?>
+<?php include_once 'API.php';$api = new API(); include_once 'jsonExporter.php'; ?>
 <!doctype html>
 <html lang="fr">
 
@@ -16,7 +16,7 @@
         </div>
 
         <div class="navBarTitle">
-            Résultat de la recherche
+            Résultat de la recherche <?php echo " \""; echo $_GET['query']; echo "\""; ?>
         </div>
 
         <div class="searchDiv">
@@ -39,12 +39,24 @@ $obj            = json_decode($json, true);
 
 if($obj['nhits'] =='0'){
   echo "<div class='errorField' >
-      Aucun résultats
+      Aucun résultats pour la recherche \"".$_GET['query']."\"
   </div>";
 }
 
 else{
-  $arrayFacetFormation = $obj['facet_groups'][0]['facets'];
+  $arrayFacetFormation = array();
+foreach ($obj['facet_groups'][0]['facets'] as $value) {
+
+array_push($arrayFacetFormation, $value['name']);
+
+}
+
+
+
+
+
+
+
   $arrayFormations    = array();
 
 $nbHits = 0;
@@ -63,17 +75,17 @@ $nbHits = 0;
 
 
 
-
   foreach ($arrayFacetFormation as $value2) {
     $arraytempo = array();
     foreach ($arrayFiltre as $value) {
-      if($value['fields']['diplome_rgp']==$value2['name']){
+      if($value['fields']['diplome_rgp']==$value2){
         array_push($arraytempo, $value);
       }
     }
     array_push($arrayFormations, $arraytempo);
   }
 
+  asort($arrayFiltre);
 
   echo "<div class='content'><br><div class='centerText'> ";
   echo $nbHits." Résultats trouvés</div><br><br>";
@@ -91,6 +103,7 @@ $nbHits = 0;
       echo "Ville: ".$temp['com_etab_lib']."<br><br>";
       echo "Type de Diplome: ".$temp['typ_diplome_lib']."<br><br>";
       echo "Type de D'Etablissement: ".$temp['etablissement_type_lib']."<br><br>";
+      echo "Nombre de vues de la formation: ".getFormationValue($value['recordid'])." <br><br>";
 
     echo '<form action="./formation.php" method="get" class="">
         <input  name="recordid" type="hidden" value="'.$value['recordid'].'">

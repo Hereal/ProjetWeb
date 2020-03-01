@@ -1,5 +1,5 @@
 <?php
-include_once 'generateList.php';
+include_once 'generateList.php'; include_once 'jsonExporter.php';
 ?>
 
 <!doctype html>
@@ -16,6 +16,9 @@ include_once 'generateList.php';
     <link rel="stylesheet" href="./lib/MarkerCluster.css" />
   	<link rel="stylesheet" href="./lib/MarkerCluster.Default.css" />
   	<script src="./lib/leaflet.markercluster-src.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156849275-1"></script>
   <script>
@@ -146,8 +149,9 @@ include_once 'generateList.php';
              foreach ($arrayEtablisement as  $value) {
                $x = floatval($value['coordonnees']['0']);
                $y = floatval($value['coordonnees']['1']);
+
                $name = $value['uo_lib'];
-               $string = $name . "<br> <a href='" . $value['url'] . "'target='_blank'>" . $value['url'] . "</a>" . "<br> <a href='./ecole.php?etablissement=".$value['uai']."'>En savoir plus</a>";
+               $string = $name . "<br> <a  href='siteIncrement.php?data=" . $value['url'] . "'target='_blank'>" . $value['url'] . "</a>" ."<br>Nombre de visite: ".getSiteValue( $value['url'] ). "<br> <a href='./ecole.php?etablissement=".$value['uai']."'>En savoir plus</a>";
                echo"markers.addLayer(new L.marker([".$x.",".$y."], {icon: greenIcon}).bindPopup(\"".$string."\"));\n";
              }
             ?>

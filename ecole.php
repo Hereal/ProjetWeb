@@ -1,4 +1,4 @@
-<?php include_once 'API.php';$api = new API(); ?>
+<?php include_once 'API.php';$api = new API(); include_once 'jsonExporter.php';?>
 <!doctype html>
 <html lang="fr">
 
@@ -139,7 +139,8 @@ echo "<div class='resultContainer'>";echo "<div class='textContainer'>";
 
   echo "Secteur: ".$temp['diplome_rgp']."<br><br>";
   echo "Type de Diplome: ".$temp['typ_diplome_lib']."<br><br>";
-  echo "Type de D'Etablissement: ".$temp['etablissement_type_lib']."<br>";
+  echo "Type de D'Etablissement: ".$temp['etablissement_type_lib']."<br><br>";
+  echo "Nombre de vues de la formation: ".getFormationValue($value['recordid'])." <br><br>";
 
 
 echo '<form action="./formation.php" method="get" class="">

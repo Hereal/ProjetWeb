@@ -1,4 +1,4 @@
-<?php include_once 'API.php';$api = new API(); ?>
+<?php include_once 'API.php';$api = new API(); include_once 'jsonExporter.php'; incrementFormation($_GET['recordid']);?>
 <!doctype html>
 <html lang="fr">
 
@@ -31,6 +31,14 @@
 
     <!--  content  -->
     <div class="content">
+      <?php if (isset($_GET['recordid'])){
+        echo "Nombre de vue de la formation: ".getFormationValue($_GET['recordid'])."<br>";
+      } ?>
+
+
+
+
+
       <div class="informationContent">
       <?php
       $recordid = $_GET['recordid'];//ID d'un resultat de la base de donnée
@@ -40,6 +48,7 @@
         echo "Aucun résultats";
       }
       else{
+
         $array = $obj['records']['0']['fields'];
 
         //Affichage des informations sur la formations
